@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Warehouse Management</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <h1>Warehouse Management</h1>
+    <div class="button-container">
+        <a href="{{ url_for('add_item') }}" class="button">Add New Item</a>
+        <a href="{{ url_for('show_items') }}" class="button">Show Items</a>
+        <a href="{{ url_for('search') }}" class="button">Search</a>
+    </div>
+</body>
+</html>

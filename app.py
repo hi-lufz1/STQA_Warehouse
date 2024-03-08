@@ -23,7 +23,23 @@ def create_table():
 
 if __name__ == '__main__':
     create_table()
+    
+@app.route('/')
+def home():
+    return render_template('home.html')
 
+
+@app.route('/search', methods=['GET', 'POST'])
+def search():
+    if request.method == 'POST':
+        search_query = request.form['search']
+        conn = create_connection()
+        cursor = conn.cursor()
+        cursor.execute("SELECT * FROM items WHERE name LIKE ?", ('%' + search_query + '%',))
+        items = cursor.fetchall()
+        conn.close()
+        return render_template('search_results.html', items=items)
+    return render_template('search.html')
 
 
 @app.route('/')
@@ -46,7 +62,7 @@ def add_item():
         cursor.execute('INSERT INTO items (name, quantity) VALUES (?, ?)', (name, quantity))
         conn.commit()
         conn.close()
-        return redirect(url_for('index'))
+        return redirect(url_for('show_items'))
     return render_template('add_item.html')
 
 
@@ -74,6 +90,15 @@ def delete_item(id):
     conn.commit()
     conn.close()
     return redirect(url_for('index'))
+
+@app.route('/show')
+def show_items():
+    conn = create_connection()
+    cursor = conn.cursor()
+    cursor.execute('SELECT * FROM items')
+    items = cursor.fetchall()
+    conn.close()
+    return render_template('show_items.html', items=items)
 
 
 if __name__ == '__main__':

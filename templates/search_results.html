@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Search Results</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <h1>Search Results</h1>
+    {% if items %}
+        <ul>
+            {% for item in items %}
+                <li>{{ item[1] }} - Quantity: {{ item[2] }}</li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>Data tidak ditemukan.</p>
+    {% endif %}
+    <a href="{{ url_for('search') }}">Back to Search</a>
+</body>
+</html>
