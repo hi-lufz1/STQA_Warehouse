@@ -23,8 +23,8 @@ def create_table():
 
 if __name__ == '__main__':
     create_table()
-    
-@app.route('/')
+
+@app.route('/home')
 def home():
     return render_template('home.html')
 

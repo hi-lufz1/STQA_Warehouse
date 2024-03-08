@@ -8,14 +8,32 @@
 <body>
     <h1>Search Results</h1>
     {% if items %}
-        <ul>
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Quantity</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
             {% for item in items %}
-                <li>{{ item[1] }} - Quantity: {{ item[2] }}</li>
+                <tr>
+                    <td>{{ item[0] }}</td>
+                    <td>{{ item[1] }}</td>
+                    <td>{{ item[2] }}</td>
+                    <td>
+                        <a href="{{ url_for('update_item', id=item[0]) }}"class = "button">Update</a>
+                        <a href="{{ url_for('delete_item', id=item[0]) }}"class = "button">Delete</a>
+                    </td>
+                </tr>
             {% endfor %}
-        </ul>
+        </tbody>
+    </table>
     {% else %}
         <p>Data tidak ditemukan.</p>
     {% endif %}
-    <a href="{{ url_for('search') }}">Back to Search</a>
+    <a href="{{ url_for('search') }}"class = "button">Back to Search</a>
 </body>
 </html>
