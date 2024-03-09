@@ -25,6 +25,7 @@ create_database()
 # Rute untuk halaman login
 @app.route('/', methods=['GET', 'POST'])
 def login():
+    error = None
     if request.method == 'POST':
         username = request.form['username']
         password = request.form['password']
@@ -33,22 +34,31 @@ def login():
             session['username'] = username
             return redirect(url_for('home'))
         else:
-            return 'Invalid username or password. Please try again.'
-    return render_template('login.html')
+            error = 'Invalid username or password. Please try again.'
+    return render_template('login.html',error=error)
 
 # Rute untuk halaman registrasi
 @app.route('/register', methods=['GET', 'POST'])
 def register():
+    error = None
     if request.method == 'POST':
         username = request.form['username']
         password = request.form['password']
-        if User.query.filter_by(username=username).first():
-            return 'Username already exists. Please choose another username.'
-        new_user = User(username=username, password=password)
-        db.session.add(new_user)
-        db.session.commit()
-        return 'Account created successfully. You can now login.'
-    return render_template('register.html')
+        confirm_password = request.form['confirm_password']
+
+        existing_user = User.query.filter_by(username=username).first()
+        if existing_user:
+            error = 'Username already exists. Please choose another username.'
+        elif password != confirm_password:
+            error = 'Passwords do not match'
+        else:
+            new_user = User(username=username, password=password)
+            db.session.add(new_user)
+            db.session.commit()
+            return redirect(url_for('login'))
+
+    return render_template('register.html', error=error)
+
 
 # Rute untuk logout
 @app.route('/logout')
@@ -68,7 +78,10 @@ def create_table():
     cursor.execute('''CREATE TABLE IF NOT EXISTS items
                       (id INTEGER PRIMARY KEY AUTOINCREMENT,
                       name TEXT NOT NULL,
-                      quantity INTEGER NOT NULL)''')
+                      quantity INTEGER NOT NULL,
+                   description TEXT,
+                   status TEXT
+                   )''')
     conn.commit()
     conn.close()
 
@@ -76,8 +89,9 @@ create_table()
 
 @app.route('/home')
 def home():
+    username = session.get('username') 
     if 'username' in session:
-        return render_template('home.html')
+        return render_template('home.html', username=username)
     else:
         return redirect(url_for('login'))
 
@@ -100,12 +114,14 @@ def add_item():
     if request.method == 'POST':
         name = request.form['name']
         quantity = request.form['quantity']
+        description = request.form ['description']
+        status = request.form['status']
         conn = create_connection()
         cursor = conn.cursor()
-        cursor.execute('INSERT INTO items (name, quantity) VALUES (?, ?)', (name, quantity))
+        cursor.execute('INSERT INTO items (name, quantity, description, status) VALUES (?, ?, ?, ?)', (name, quantity, description, status))
         conn.commit()
         conn.close()
-        return redirect(url_for('index'))
+        return redirect(url_for('show_items'))
     return render_template('add_item.html')
 
 @app.route('/update/<int:id>', methods=['GET', 'POST'])
@@ -117,10 +133,12 @@ def update_item(id):
     if request.method == 'POST':
         name = request.form['name']
         quantity = request.form['quantity']
-        cursor.execute('UPDATE items SET name=?, quantity=? WHERE id=?', (name, quantity, id))
+        description = request.form ['description']
+        status = request.form['status']
+        cursor.execute('UPDATE items SET name=?, quantity=?, description=?, status=?, WHERE id=?', (name, quantity,description,status, id))
         conn.commit()
         conn.close()
-        return redirect(url_for('index'))
+        return redirect(url_for('show_items'))
     return render_template('update_item.html', item=item)
 
 @app.route('/delete/<int:id>')
@@ -130,7 +148,7 @@ def delete_item(id):
     cursor.execute('DELETE FROM items WHERE id=?', (id,))
     conn.commit()
     conn.close()
-    return redirect(url_for('home'))
+    return redirect(url_for('show_items'))
 
 @app.route('/show')
 def show_items():

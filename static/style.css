@@ -1,37 +1,103 @@
-/* Base styles */
+/* Overall styles */
 body {
-  font-family: Roboto, sans-serif;
-  background-color: #f0f0f0;
+  font-family: sans-serif;
   margin: 0;
   padding: 0;
-}
-
-/* Container */
-.container {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 20px;
+  display: auto;
+  min-height: 100vh;
+  background-color: #f0f2f5;
 }
 
 /* Header */
 .header {
-  background-color: #007bff;
-  color: #fff;
-  text-align: center;
-  padding: 20px;
-  border-radius: 8px; /* Rounded corners */
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 2rem;
+  background-color: #fff;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
 }
 
-h1 {
-  font-size: 36px;
-  margin-bottom: 20px;
+.header h1 {
+  font-size: 1.5rem;
+  margin: 0;
+}
+
+.header p {
+  margin: 0;
+  font-weight: bold;
+}
+
+/* Navigation */
+.navigation {
+  display: flex;
+  flex-direction: column;
+  width: 200px;
+  padding: 1rem 2rem;
+  background-color: #f8f9fa;
+  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.navigation a {
+  text-decoration: none;
+  color: #333;
+  margin-bottom: 1rem;
+  font-weight: bold;
+}
+
+.navigation a:hover {
+  color: #007bff;
+}
+
+/* Main Content */
+.main-content {
+  flex: 1;
+  padding: 2rem;
+}
+
+.main-content h2 {
+  margin: 1rem 0;
+  font-size: 1.2rem;
+}
+
+.main-content .card {
+  background-color: #fff;
+  padding: 1rem;
+  border-radius: 5px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  margin-bottom: 1rem;
+}
+
+.main-content .card h3 {
+  margin-bottom: 0.5rem;
+}
+
+.main-content .card p {
+  margin-bottom: 0;
+}
+
+/* Table */
+.table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.table th,
+.table td {
+  padding: 0.5rem 1rem;
+  border: 1px solid #ddd;
+  text-align: left;
+}
+
+.table th {
+  background-color: #f0f2f5;
+  font-weight: bold;
 }
 
 /* Button */
 .button {
   display: inline-block;
-  background-color: #007bff;
+  background-color: #0255FB;
   color: #fff;
   padding: 10px 20px;
   text-align: center;
@@ -43,14 +109,33 @@ h1 {
   cursor: pointer; /* Indicate clickable button */
 }
 
+.buttonlogout {
+  display: inline-block;
+  background-color: #e40000;
+  color: #fff;
+  padding: 10px 20px;
+  text-align: center;
+  text-decoration: none;
+  border: none; /* Removed border for cleaner look */
+  border-radius: 4px;
+  margin-right: 10px;
+  transition: background-color 0.3s ease;
+  cursor: pointer; /* Indicate clickable button */
+}
+
+
 .button:hover {
-  background-color: #0056b3;
+  background-color: #0255FB;
 }
 
 /* Table container */
 .table-container {
+  padding: 1rem;
   background-color: #fff;
-  border-radius: 8px;
+  border-radius: 5px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  margin: 1rem auto;
+  max-width: 800px; 
   overflow: hidden; /* Maintain layout when content overflows */
 }
 
@@ -62,12 +147,14 @@ h1 {
 
 th,
 td {
-  padding: 15px;
+  padding: 0.5rem 1rem;
+  border: 1px solid #ddd;
   text-align: left;
 }
 
 th {
-  background-color: #f5f5f5;
+  background-color: #f0f2f5;
+  font-weight: bold;
 }
 
 tr:nth-child(even) {
@@ -98,6 +185,7 @@ tr:hover {
 .form-label {
   flex: 0 0 30%; /* Set label width to 30% */
   font-weight: bold;
+  margin-bottom: 1rem;
   margin-right: 10px; /* Spacing between label and input */
 }
 
@@ -107,14 +195,15 @@ tr:hover {
   border: 1px solid #ccc; /* Border for input */
   border-radius: 4px; /* Rounded corners for input */
   font-size: 16px; /* Font size for input */
+  padding: 0.75rem 1rem
 }
 
 .form-input:focus {
-  border-color: #007bff; /* Blue border on focus */
+  border-color: #0255FB; /* Blue border on focus */
 }
 
 .form-button {
-  background-color: #007bff; /* Blue button color */
+  background-color: #0255FB; /* Blue button color */
   color: #fff; /* White button text */
   padding: 10px 20px; /* Button padding */
   border: none; /* Remove border for cleaner look */
@@ -122,10 +211,11 @@ tr:hover {
   cursor: pointer; /* Indicate clickable button */
   margin-top: 10px; /* Spacing above button */
   transition: background-color 0.3s ease; /* Smooth color transition on hover */
+  margin-left: 1rem
 }
 
 .form-button:hover {
-  background-color: #0056b3; /* Darker blue on hover */
+  background-color: #0255FB; /* Darker blue on hover */
 }
 
 .form-container form {
@@ -136,48 +226,68 @@ tr:hover {
  .form-container button {
   width: 100%;
   padding: 10px;
-  background-color: #4CAF50;
+  background-color:#0255FB;
   color: white;
   border: none;
   border-radius: 4px;
   cursor: pointer;
  }
 
- /* Gaya untuk kontainer login */
+ 
+
+
+
+/* Sign in container */
 .login-container {
-  max-width: 400px;
-  margin: 0 auto;
-  padding: 20px;
-  background-color: #f9f9f9;
-  border-radius: 8px;
+  background-color: #fff;
+  padding: 30px;
+  border-radius: 5px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  text-align: center;
+  width: 400px; /* Adjust width as needed */
 }
 
+/* Sign in text */
 .login-container h1 {
+  text-align: center;
   margin-bottom: 20px;
 }
 
-.login-container form {
-  margin-top: 20px;
-}
-
-.login-container input {
+/* Input fields */
+.login-container input[type="text"],
+.login-container input[type="password"] {
+  align-items: center;
   width: 100%;
   padding: 10px;
-  margin-bottom: 10px;
+  border: 1px solid #ccc;
+  margin-bottom: 15px;
+  border-radius: 3px;
 }
 
+
+/* Submit button */
 .login-container button {
-  width: 100%;
-  padding: 10px;
-  background-color: #4CAF50;
-  color: white;
+  background-color:#0255FB;
+  color: #fff;
+  padding: 10px 20px;
   border: none;
-  border-radius: 4px;
+  border-radius: 3px;
   cursor: pointer;
+  width: 100%;
 }
 
 .login-container button:hover {
-  background-color: #45a049;
+  background-color: #0255FB;
+}
+
+/* Links */
+.login-container a {
+  color:#0255FB;
+  text-decoration: none;
+  font-weight: bold;
+  margin-top: 10px;
+  display: block;
+}
+
+.login-container a:hover {
+  color: #0255FB;
 }

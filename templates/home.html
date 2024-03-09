@@ -1,24 +1,26 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>Warehouse Management</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+  <meta charset="UTF-8">
+  <title>Warehouse Management</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
-    <div class="container">
-        <div class="header">
-            <h1>Warehouse Management</h1>
-        </div>
-        <div class="item-card">
-            <a href="{{ url_for('add_item') }}" class="button">Add New Item</a>
-        </div>
-        <div class="item-card">
-            <a href="{{ url_for('show_items') }}" class="button">Show Items</a>
-        </div>
-        <div class="item-card">
-            <a href="{{ url_for('search') }}" class="button">Search</a>
-        </div>
+  <div class="container">
+    <div class="header">
+      <h1>Warehouse Management</h1>
+      <p style= "align-items: right ;">
+        Welcome, {% if username %}{{ username }}{% else %}Guest{% endif %}</p>
+      <a href="{{ url_for('logout') }}" class="buttonlogout">Logout</a>
     </div>
+    <div class="main-content">
+      <div class="card">
+        <h2>Actions</h2>
+        <a href="{{ url_for('add_item') }}" class="button">Add New Item</a>
+        <a href="{{ url_for('show_items') }}" class="button">Show Items</a>
+        <a href="{{ url_for('search') }}" class="button">Search</a>
+      </div>
+    </div>
+  </div>
 </body>
 </html>
