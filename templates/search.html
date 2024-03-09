@@ -6,14 +6,19 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
-    <h1>Search Item</h1>
-    <form method="post">
-        <input type="text" name="search" placeholder="Search...">
-        <button type="submit">Search</button>
-
-
-    </form>
-    <a href="{{ url_for('home') }}" class="button">Back</a>
-
+    <div class="container">
+        <div class="header">
+            <h1>Search Item</h1>
+        </div>
+        <div class="form-container">
+            <form method="post">
+                <div class="form-group">
+                    <input type="text" name="search" class="form-input" placeholder="Search...">
+                    <button type="submit" class="form-button">Search</button>
+                </div>
+            </form>
+        </div>
+        <a href="{{ url_for('home') }}" class="button">Back</a>
+    </div>
 </body>
 </html>
