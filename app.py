@@ -91,7 +91,24 @@ create_table()
 def home():
     username = session.get('username') 
     if 'username' in session:
-        return render_template('home.html', username=username)
+        conn = create_connection()
+        cursor = conn.cursor()
+
+        cursor.execute('SELECT COUNT(*) FROM items')
+        total_items = cursor.fetchone()[0]
+
+        cursor.execute('SELECT COUNT(*) FROM items WHERE status="Tersedia"')
+        total_available_items = cursor.fetchone()[0]
+
+        cursor.execute('SELECT COUNT(*) FROM items WHERE status="Tidak Tersedia"')
+        total_unavailable_items = cursor.fetchone()[0]
+
+        cursor.execute('SELECT COUNT(*) FROM items WHERE quantity=0')
+        total_out_of_stock_items = cursor.fetchone()[0]
+
+        conn.close()
+
+        return render_template('home.html', username=username, total_items=total_items, total_available_items=total_available_items, total_unavailable_items=total_unavailable_items, total_out_of_stock_items=total_out_of_stock_items)
     else:
         return redirect(url_for('login'))
 

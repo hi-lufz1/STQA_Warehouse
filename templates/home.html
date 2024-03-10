@@ -9,17 +9,41 @@
   <div class="container">
     <div class="header">
       <h1>GUDANGIN</h1>
-      <p style= "align-items: right ;">
+      <p style="align-items: right;">
         Halo, {% if username %}{{ username }}{% else %}Guest{% endif %}</p>
       <a href="{{ url_for('logout') }}" class="buttonlogout">Logout</a>
     </div>
     <div class="main-content">
+        <div class="card">
+            <h2>Statistics</h2>
+            <div class="stat-box-container">
+                <div class="stat-box">
+                    <h3>Total Barang</h3>
+                    <p>{{ total_items }}</p>
+                </div>
+                <div class="stat-box">
+                    <h3>Total Barang Tersedia</h3>
+                    <p>{{ total_available_items }}</p>
+                </div>
+                <div class="stat-box">
+                    <h3>Total Barang Tidak Tersedia</h3>
+                    <p>{{ total_unavailable_items }}</p>
+                </div>
+                <div class="stat-box">
+                    <h3>Total Barang Kehabisan Stok</h3>
+                    <p>{{ total_out_of_stock_items }}</p>
+                </div>
+            </div>
+        </div>
+        
+        
       <div class="card">
         <h2>Actions</h2>
         <a href="{{ url_for('add_item') }}" class="button">Add New Item</a>
         <a href="{{ url_for('show_items') }}" class="button">Show Items</a>
         <a href="{{ url_for('search') }}" class="button">Search</a>
       </div>
+     
     </div>
   </div>
 </body>
