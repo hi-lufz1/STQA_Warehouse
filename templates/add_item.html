@@ -28,15 +28,19 @@
           </div>
           <div class="form-group">
             <label for="status" class="form-label">Status:</label>
-            <input type="text" id="status" name="status" class="form-input" required>
+            <select id="status" name="status" class="form-input" required>
+              <option value="Tersedia">Tersedia</option>
+              <option value="Tidak Tersedia">Tidak Tersedia</option>
+              <option value="Stok Habis">Stok Habis</option>
+            </select>
           </div>
           <button type="submit" class="form-button">Add Item</button>
         </form>
       </div>
     </div>
-  </div class = "class">
-    <a style="padding-left: 2rem;" href="{{ url_for('home') }}" class="button">Back</a>
-  <div>
+    <div class="card" style="padding-left: 2rem;">
+        <a href="{{ url_for('home') }}" class="button">Back</a>
+    </div>
   </div>
 </body>
 </html>

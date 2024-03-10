@@ -135,7 +135,7 @@ def update_item(id):
         quantity = request.form['quantity']
         description = request.form ['description']
         status = request.form['status']
-        cursor.execute('UPDATE items SET name=?, quantity=?, description=?, status=?, WHERE id=?', (name, quantity,description,status, id))
+        cursor.execute('UPDATE items SET name=?, quantity=?, description=?, status=? WHERE id=?', (name, quantity,description,status, id))
         conn.commit()
         conn.close()
         return redirect(url_for('show_items'))
